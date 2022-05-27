@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ProyectoProgramacionIII.Views.ViajesViews.ViajesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoProgramacionIII.Views.ViajesViews"
+             xmlns:vm="clr-namespace:ProyectoProgramacionIII.ViewModels.ViajeViewModels"
+             mc:Ignorable="d" 
+             Visibility="{Binding ControlVisibility}" d:Visibility="Visible"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:ViajeViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" MinHeight="120"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <StackPanel HorizontalAlignment="Center" Margin="10">
+                <Label Content="Origen:" FontSize="16" HorizontalAlignment="Center"/>
+                <ComboBox Width="150" Height="28" ItemsSource="{Binding Nodos}" SelectedItem="{Binding SelectedNodo1}"
+                          DisplayMemberPath="Nombre" FontSize="16"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="10">
+                <Label Content="Destino:" FontSize="16" HorizontalAlignment="Center"/>
+                <ComboBox Width="150" Height="28" ItemsSource="{Binding Nodos}" SelectedItem="{Binding SelectedNodo2}"
+                          DisplayMemberPath="Nombre" FontSize="16"/>
+            </StackPanel>
+            <Button Content="Viajar" VerticalAlignment="Center" Height="28" FontSize="16" Margin="20 0 0 10" Command="{Binding ViajarCommand}"/>
+        </StackPanel>
+
+        <DataGrid   ItemsSource="{Binding Etiquetas}" Grid.Row="1"
+                        AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                        CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                        CanUserSortColumns="False" FontSize="16">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Origen" Width="*" Binding="{Binding Origen.Nombre}" FontSize="16"/>
+                <DataGridTextColumn Header="Destino" Width="*" Binding="{Binding Destino.Nombre}" FontSize="16"/>
+                <DataGridTextColumn Header="Peso" Width="0.75*" Binding="{Binding Peso}" FontSize="16"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label HorizontalAlignment="Right" Content="{Binding Costo}" FontSize="16" Grid.Row="2" Margin="20 5"/>
+    </Grid>
+</UserControl>
